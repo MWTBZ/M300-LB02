@@ -17,7 +17,7 @@ Der Apache wird einen kleine custom Webseite anzeigen, und im über Samba werden
 
 ### Betrieb
 Die VM wird mit Vagrant aufgesetzt, damit alle benötigten Ports freigegeben sind. Die Docker mit den benötigten Dateien liegen jeweils im **apache**- und **samba** Ordner.  
-Beide Container sind in einem Dockerfile definiert und werden über ein `Dockercompose.yml` so in Betrieb genommen.   
+Beide Container sind in einem Dockerfile definiert und werden über ein `docker-compose.yml` so in Betrieb genommen.   
 Damit man die Service benützen kann, müssen ebenfalls im Docker die Ports freigegeben werden.     
 
 1. Zuerst muss natürlich die VM geestartet werden. Dies macht man mit `vagrant up`.
