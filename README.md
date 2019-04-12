@@ -135,10 +135,10 @@ CMD ["smbd", "--foreground", "--no-process-group", "--log-stdout"]
 ## Testing
 | Service | Testfall | Beschreibung | Resultat |
 |:--:|:--:|:--|:--|
-| Webserver | Webseite erreichbar | Browser öffnen<br>**http://10.71.13.20** | Webseite kann aufgerufen werden<br>*Siehe Bild 1* |
-| Samba | Samba erreichbar | Windows Explorer öffnen<br> **\\\10.71.13.20** | Freigegebene Ordner<br>werden angezeigt<br>*Siehe Bild 2* |
-| Samba | Berechtigung<br>guest | Windows Explorer öffnen<br> **\\\10.71.13.20\guest**<br>Alle sind Berechtigt. Gast-Zugang | Gast-Zugang funktioniert |
-| Samba | Berechtigung<br>html | Windows Explorer öffnen<br> **\\\10.71.13.20\html**<br>Nur Benutzer "samba" ist berechtigt | Konnte keine Benutzerrechte vergeben in Alpine :( |
+| Webserver | Webseite erreichbar | Browser öffnen<br>**http://192.168.0.100** | Webseite kann aufgerufen werden<br>*Siehe Bild 1* |
+| Samba | Samba erreichbar | Windows Explorer öffnen<br> **\\\192.168.0.100** | Freigegebene Ordner<br>werden angezeigt<br>*Siehe Bild 2* |
+| Samba | Berechtigung<br>guest | Windows Explorer öffnen<br> **\\\192.168.0.100\guest**<br>Alle sind Berechtigt. Gast-Zugang | Gast-Zugang funktioniert |
+| Samba | Berechtigung<br>html | Windows Explorer öffnen<br> **\\\192.168.0.100\html**<br>Nur Benutzer "samba" ist berechtigt | Konnte keine Benutzerrechte vergeben in Alpine :( |
 
 **Webserver**   
 ![Bild Webseite](Images/Webserver.png)
