@@ -20,19 +20,16 @@ Die VM wird mit Vagrant aufgesetzt, damit alle benötigten Ports freigegeben sin
 Beide Container sind in einem Dockerfile definiert und werden über ein `Dockercompose.yml` so in Betrieb genommen.   
 Damit man die Service benützen kann, müssen ebenfalls im Docker die Ports freigegeben werden.     
 
-Zuerst muss natürlich die VM geestartet werden. Dies macht man mit `vagrant up`.
+1. Zuerst muss natürlich die VM geestartet werden. Dies macht man mit `vagrant up`.
+2. Dann gehen Sie ins Vagrant-Directory:         `cd /vagrant`
+3. Danach müssen die Container gebuildet werden: `docker-compose build`
+4. ZUm Schluss muüssen Sie noch gestartet werden:   `docker-compose up -d`
 
-```
-cd /vagrant
-docker-compose build
-docker-compose up -d
-```
-
+#### Anderer Befehle
 Docker öffnen:                        `docker exec -it apache /bin/bash`    
 Docker stoppen:                       `docker stop apache` und `docker stop samba`.   
 Docker herunterfahren und löschen:    `docker-compose down` 
 Docker löschen:                       `docker rm apache` und `docker rm samba`.   
-Oder Alle löschen:                    <code>docker rm `docker ps -a -q`</code>
 
 #### smb.conf
 Die Konfigurationsdatei von Samba wird vom Client lokal dem Docker übergeben und überschreibt dann die Standardkonfiguration von Samba. Die smb.conf sieht wie folgt aus:
@@ -49,9 +46,9 @@ Die Konfigurationsdatei von Samba wird vom Client lokal dem Docker übergeben un
         comment = Foldershare for web
         path = /web/
         read only = no
-        guest ok = no ######
-        writeable = yes #######
-        valid users = samba ######
+        guest ok = no
+        writeable = yes 
+        valid users = samba 
         force user = samba
 ```
 ### Dockerfiles
@@ -89,16 +86,14 @@ services:
 ```
 #### Apache
 ```Dockerfile
-#
-#	Einfache Apache Umgebung
-#
 FROM ubuntu:latest
 MAINTAINER Mischa Wolf
 
+# Install Apache
 RUN apt-get update
 RUN apt-get -q -y install apache2 
 
-# Konfiguration Apache
+# Configure Apache
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
@@ -106,6 +101,7 @@ ENV APACHE_LOG_DIR /var/log/apache2
 RUN mkdir -p /var/lock/apache2 /var/run/apache2 \
 && rm /var/www/html/index.html
 
+# Expose Port 80
 EXPOSE 80
 
 CMD /bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND"
@@ -113,21 +109,23 @@ CMD /bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGR
 #### Samba
 ```Dockerfile
 FROM alpine:latest
+MAINTAINER Mischa Wolf
 
+# Install Samba
 RUN apk add --no-cache --update \
     samba-common-tools \
     samba-client \
     samba-server
 
-######
+# Configure Samba Users
 RUN adduser samba
 RUN (echo Test; echo Test) | smbpasswd -s -a samba 
 RUN service smbd restart
 
-#####
-
+# Copy smb.conf
 COPY /samba/smb.conf /etc/samba/smb.conf
 
+# Expose Ports 445 / 139
 EXPOSE 445/tcp 139/tcp
 
 CMD ["smbd", "--foreground", "--no-process-group", "--log-stdout"]

@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     
   # Definition of Ubuntu
   config.vm.hostname = "docker"
-  config.vm.network "private_network", ip:"192.168.0.100"
+  config.vm.network "private_network", ip:"192.168.0.100"  # 10.71.13.20
 
   # Definition of VM
   config.vm.provider "virtualbox" do |vb|

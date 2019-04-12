@@ -6,8 +6,8 @@ services:
     tty: true
     network_mode: bridge
     volumes:
-      - /samba/Share/:/Shared
-      - /apache/web:/web
+      - ./samba/Share/:/Shared
+      - ./apache/web:/web
     ports:
       - "445:445"
       - "139:139"
@@ -20,7 +20,7 @@ services:
     tty: true
     network_mode: bridge
     volumes:
-      - /apache/web:/var/www/html
+      - ./apache/web:/var/www/html
     ports:
       - "80:80"
     build:
