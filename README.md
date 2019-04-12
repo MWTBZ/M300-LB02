@@ -27,8 +27,8 @@ Damit man die Service benützen kann, müssen ebenfalls im Docker die Ports frei
 
 #### Anderer Befehle
 Docker öffnen:                        `docker exec -it apache /bin/bash`    
-Docker stoppen:                       `docker stop apache`
-Docker herunterfahren und löschen:    `docker-compose down` 
+Docker stoppen:                       `docker stop apache`    
+Docker herunterfahren und löschen:    `docker-compose down`    
 Docker löschen:                       `docker rm apache`  
 
 #### smb.conf
