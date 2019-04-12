@@ -1,7 +1,0 @@
-services:
-
-    web:
-      image: #asa
-
-    samba:
-        image: #sss

@@ -1,7 +1,7 @@
 #
 #	Einfache Apache Umgebung
 #
-FROM ubuntu:14.04
+FROM ubuntu:latest
 MAINTAINER Mischa Wolf
 
 RUN apt-get update
@@ -15,7 +15,5 @@ ENV APACHE_LOG_DIR /var/log/apache2
 RUN mkdir -p /var/lock/apache2 /var/run/apache2
 
 EXPOSE 80
-
-VOLUME /var/www/html
 
 CMD /bin/bash -c "source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND"

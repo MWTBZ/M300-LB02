@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  samba:
+    container_name: samba
+    tty: true
+    network_mode: bridge
+    volumes:
+      - /samba/Share/:/Shared
+      - /apache/web:/web
+    ports:
+      - "445:445"
+      - "139:139"
+    build:
+      context: .
+      dockerfile: /samba/Dockerfile
+
+  web:
+    container_name: apache
+    tty: true
+    network_mode: bridge
+    volumes:
+      - /apache/web:/var/www/html
+    ports:
+      - "80:80"
+    build:
+      context: .
+      dockerfile: /apache/Dockerfile
